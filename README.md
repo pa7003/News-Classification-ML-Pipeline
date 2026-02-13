@@ -181,3 +181,5 @@ The model demonstrates strong generalization and stable cross-validation perform
 
 ---
 
+## Streamlit Deployment
+* Link : https://news-classification-7003.streamlit.app/
