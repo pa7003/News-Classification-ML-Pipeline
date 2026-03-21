@@ -9,21 +9,21 @@ from src.config import MODEL_PATH, MAX_FEATURES, NGRAM_RANGE
 
 def train_model(X_train, y_train):
 
-    # Create Pipeline
+    # Create Pipeline-sequence of steps
     pipeline = Pipeline([
         ("tfidf", TfidfVectorizer(
-            max_features=MAX_FEATURES,
+            max_features=MAX_FEATURES, # limits vocab size, reduce memory and avoids noise
             ngram_range=NGRAM_RANGE,
             stop_words="english"
         )),
         ("classifier", LogisticRegression())
     ])
 
-    # Hyperparameter grid (for classifier only)
+    # Hyperparameter grid (for classifier only) bcz tuning inside pipeline
     param_grid = {
-        "classifier__C": [0.5, 1, 2],
-        "classifier__max_iter": [1000, 2000],
-        "classifier__solver": ["lbfgs"]
+        "classifier__C": [0.5, 1, 2],  # regularization strength
+        "classifier__max_iter": [1000, 2000],  # no. of iteration for training 
+        "classifier__solver": ["lbfgs"]     # optimization algo
     }
 
     # GridSearch on entire pipeline
