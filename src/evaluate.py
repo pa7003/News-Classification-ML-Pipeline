@@ -16,12 +16,12 @@ def evaluate_model(X_test, y_test):
     with open(MODEL_PATH, "rb") as f:
         model = pickle.load(f)
 
-    predictions = model.predict(X_test)
+    predictions = model.predict(X_test)     # model predicts labels for test data
 
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average="weighted", zero_division=0)
-    recall = recall_score(y_test, predictions, average="weighted", zero_division=0)
-    f1 = f1_score(y_test, predictions, average="weighted", zero_division=0)
+    accuracy = accuracy_score(y_test, predictions)  # correct prediction/Total prediction
+    precision = precision_score(y_test, predictions, average="weighted", zero_division=0)    # out of predicted positives, how many were correct 
+    recall = recall_score(y_test, predictions, average="weighted", zero_division=0)          # Out of actual positives, how many were correctly predicted
+    f1 = f1_score(y_test, predictions, average="weighted", zero_division=0)   # harmonic mean of precision and recall
     cm = confusion_matrix(y_test, predictions)
     report = classification_report(y_test, predictions, zero_division=0)
 
@@ -37,4 +37,4 @@ def evaluate_model(X_test, y_test):
         f.write("\n\nClassification Report:\n")
         f.write(report)
 
-    return accuracy
+    return accuracy  # useful for logging, hyperparameter tuning and comparing models
