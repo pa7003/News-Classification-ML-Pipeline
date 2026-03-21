@@ -11,18 +11,19 @@ lemmatizer = WordNetLemmatizer()
 
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'[^a-zA-Z\s]', '', text)    # remove special characters
+    text = re.sub(r'\s+', ' ', text).strip()   # replace multiple spaces with one space
 
-    words = text.split()
-    words = [word for word in words if word not in ENGLISH_STOP_WORDS and len(word) > 2]
-    words = [lemmatizer.lemmatize(word) for word in words]
+    words = text.split()       # tokenization 
+    words = [word for word in words if word not in ENGLISH_STOP_WORDS and len(word) > 2]         # remove stopwards and short words
+    words = [lemmatizer.lemmatize(word) for word in words]       # converts words to their root form 
 
-    return " ".join(words)
+    return " ".join(words)     # converts list to str
 
 
 def load_and_preprocess():
     # AG News has no headers
+    # Load dataset
     train_df = pd.read_csv(TRAIN_PATH)
     test_df = pd.read_csv(TEST_PATH)
 
